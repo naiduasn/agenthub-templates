@@ -1,0 +1,23 @@
+kind: skill
+id: portfolio-analysis
+name: Portfolio Analysis
+version: 1.0.0
+status: active
+category: Trading
+description: Read-only portfolio review with holdings, positions, margins, mutual funds, and market context.
+skillFile: SKILL.md
+manifest:
+  capabilities:
+    - portfolio.holdings.read
+    - portfolio.positions.read
+    - portfolio.mutual_funds.read
+    - portfolio.margins.read
+    - market.quotes.read
+  preferredTools:
+    - holdings
+    - positions
+    - margins
+    - quotes
+  safety:
+    readOnly: true
+    disallowOrderPlacement: true

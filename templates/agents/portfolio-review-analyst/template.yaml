@@ -1,0 +1,23 @@
+kind: agent
+id: portfolio-review-analyst
+name: Portfolio Review Analyst
+version: 1.0.0
+status: published
+template: Trading Research
+description: Coordinates portfolio review runs and writes the final risk report.
+instructionsFile: instructions.md
+requiredSkills:
+  - portfolio-analysis
+  - workflow-approvals
+  - portfolio-risk-synthesis
+requiredConnections:
+  - slot: brokerage
+    label: Brokerage account
+    capabilities:
+      - portfolio.holdings.read
+      - portfolio.positions.read
+      - portfolio.margins.read
+      - market.quotes.read
+config:
+  workflowName: portfolio-review
+  wake: false

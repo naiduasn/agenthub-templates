@@ -1,0 +1,54 @@
+kind: workflow
+id: portfolio-review
+name: Portfolio Review
+version: 1.0.0
+runtimeName: portfolio-review
+trigger: Manual - portfolio source
+status: published
+description: Authenticate a brokerage connection, read portfolio data, run approval gates, fan out holding analysis, then synthesize one report.
+requiredSkills:
+  - portfolio-analysis
+  - workflow-approvals
+  - portfolio-risk-synthesis
+requiredConnections:
+  - slot: brokerage
+    label: Brokerage account
+    capabilities:
+      - portfolio.holdings.read
+      - portfolio.positions.read
+      - portfolio.margins.read
+      - market.quotes.read
+approvalGates:
+  - id: read_portfolio
+    label: Read portfolio data
+    capabilities:
+      - portfolio.holdings.read
+      - portfolio.positions.read
+      - portfolio.margins.read
+stages:
+  - type: agent
+    agent: Portfolio Review Analyst
+    template: Trading Research
+    role: Verify brokerage session and prepare scoped tools
+    status: queued
+    conn: on authenticated
+  - type: approval
+    label: Read approval
+    detail: read_portfolio -> holdings, positions, margins
+    conn: on approve
+  - type: agent
+    agent: Stock Folio Analyst
+    template: Subagent fan-out
+    role: Analyze selected holdings in parallel
+    status: idle
+    conn: on aggregate
+  - type: agent
+    agent: Portfolio Review Analyst
+    template: Report
+    role: Write final portfolio risk report
+    status: idle
+schedule:
+  supported: true
+  default:
+    frequency: manual
+    timezone: project

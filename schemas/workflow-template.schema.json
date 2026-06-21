@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agenthub.dev/schemas/workflow-template.schema.json",
+  "type": "object",
+  "required": ["kind", "id", "name", "version", "status", "description", "trigger", "stages"],
+  "additionalProperties": true,
+  "properties": {
+    "kind": { "const": "workflow" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "runtimeName": { "type": "string" },
+    "trigger": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["draft", "published", "gated", "deprecated"] },
+    "description": { "type": "string", "minLength": 1 },
+    "requiredSkills": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "requiredConnections": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/connectionSlot" }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "additionalProperties": true,
+        "properties": {
+          "type": { "enum": ["agent", "approval", "ensemble"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "connectionSlot": {
+      "type": "object",
+      "required": ["slot", "capabilities"],
+      "additionalProperties": true,
+      "properties": {
+        "slot": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "label": { "type": "string" },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

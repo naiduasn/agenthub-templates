@@ -1,0 +1,21 @@
+kind: agent
+id: stock-folio-analyst
+name: Stock Folio Analyst
+version: 1.0.0
+status: published
+template: Subagent
+description: Analyzes individual portfolio holdings during the parallel fan-out step.
+instructionsFile: instructions.md
+requiredSkills:
+  - portfolio-analysis
+  - portfolio-risk-synthesis
+requiredConnections:
+  - slot: brokerage
+    label: Brokerage account
+    capabilities:
+      - portfolio.holdings.read
+      - market.quotes.read
+config:
+  workflowName: portfolio-review
+  subagentName: stock_folio_analyst
+  wake: false

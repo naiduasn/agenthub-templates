@@ -1,0 +1,18 @@
+kind: skill
+id: workflow-approvals
+name: Workflow Approvals
+version: 1.0.0
+status: active
+category: Governance
+description: Human gates for external reads, writes, and long-running workflow steps.
+manifest:
+  approvals:
+    - read_portfolio
+    - analyze_holdings
+    - external_write
+  defaults:
+    requireApprovalFor:
+      - credential_scope_change
+      - external_write
+      - high_cost
+    allowReadOnlyAfterApproval: true

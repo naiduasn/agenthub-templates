@@ -1,0 +1,41 @@
+kind: connection
+id: zerodha-kite
+name: Zerodha Kite
+version: 1.0.0
+status: active
+connectionKind: mcp
+auth: oauth
+provider: kite
+description: Zerodha Kite MCP connection for Indian brokerage portfolio and market data.
+server:
+  defaultUrl: https://mcp.kite.trade/mcp
+capabilities:
+  - portfolio.holdings.read
+  - portfolio.positions.read
+  - portfolio.mutual_funds.read
+  - portfolio.margins.read
+  - portfolio.profile.read
+  - market.instruments.search
+  - market.ltp.read
+  - market.quotes.read
+  - market.ohlc.read
+tools:
+  - get_holdings
+  - get_positions
+  - get_mf_holdings
+  - get_margins
+  - get_profile
+  - search_instruments
+  - get_ltp
+  - get_quotes
+  - get_ohlc
+toolAliases:
+  get_holdings: portfolio.holdings.read
+  get_positions: portfolio.positions.read
+  get_mf_holdings: portfolio.mutual_funds.read
+  get_margins: portfolio.margins.read
+  get_profile: portfolio.profile.read
+  search_instruments: market.instruments.search
+  get_ltp: market.ltp.read
+  get_quotes: market.quotes.read
+  get_ohlc: market.ohlc.read

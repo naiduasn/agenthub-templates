@@ -1,0 +1,46 @@
+name: Validate Template Catalog
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      AGENTHUB_TEMPLATE_SYNC_URL: ${{ secrets.AGENTHUB_TEMPLATE_SYNC_URL }}
+      AGENTHUB_TEMPLATE_SYNC_TOKEN: ${{ secrets.AGENTHUB_TEMPLATE_SYNC_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Validate YAML templates
+        run: npm run validate
+
+      - name: Build catalog
+        run: npm run build:catalog
+
+      - name: Upload catalog artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: agenthub-template-catalog
+          path: dist/catalog.json
+
+      - name: Sync AgentHub catalog
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.AGENTHUB_TEMPLATE_SYNC_URL != '' && env.AGENTHUB_TEMPLATE_SYNC_TOKEN != ''
+        run: |
+          curl -fsS -X POST "$AGENTHUB_TEMPLATE_SYNC_URL" \
+            -H "authorization: Bearer $AGENTHUB_TEMPLATE_SYNC_TOKEN" \
+            -H "content-type: application/json" \
+            --data-binary @dist/catalog.json

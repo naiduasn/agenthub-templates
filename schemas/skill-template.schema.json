@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agenthub.dev/schemas/skill-template.schema.json",
+  "type": "object",
+  "required": ["kind", "id", "name", "version", "status", "description", "category", "manifest"],
+  "additionalProperties": true,
+  "properties": {
+    "kind": { "const": "skill" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "enum": ["active", "draft", "deprecated"] },
+    "description": { "type": "string", "minLength": 1 },
+    "category": { "type": "string", "minLength": 1 },
+    "skillFile": { "type": "string" },
+    "manifest": { "type": "object" }
+  }
+}

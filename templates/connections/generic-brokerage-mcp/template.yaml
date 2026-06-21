@@ -1,0 +1,27 @@
+kind: connection
+id: generic-brokerage-mcp
+name: Generic Brokerage MCP
+version: 1.0.0
+status: active
+connectionKind: mcp
+auth: custom
+description: User-defined MCP server that can expose portfolio and market data tools.
+capabilities:
+  - portfolio.holdings.read
+  - portfolio.positions.read
+  - portfolio.margins.read
+  - portfolio.profile.read
+  - market.quotes.read
+  - market.ohlc.read
+toolContract:
+  holdings: portfolio.holdings.read
+  positions: portfolio.positions.read
+  margins: portfolio.margins.read
+  quotes: market.quotes.read
+configuration:
+  required:
+    - serverUrl
+  optional:
+    - allowedTools
+    - authMode
+    - headers

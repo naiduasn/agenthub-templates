@@ -1,0 +1,16 @@
+kind: skill
+id: portfolio-risk-synthesis
+name: Portfolio Risk Synthesis
+version: 1.0.0
+status: active
+category: Trading
+description: Combine holding opinions into allocation, risk, and next-check summaries.
+manifest:
+  outputs:
+    - risk_summary
+    - holding_opinions
+    - action_checks
+  aggregation:
+    preserveDisagreements: true
+    requireEvidencePerHolding: true
+    defaultMethod: weighted_consensus

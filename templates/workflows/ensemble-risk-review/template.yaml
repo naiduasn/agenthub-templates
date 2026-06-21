@@ -1,0 +1,48 @@
+kind: workflow
+id: ensemble-risk-review
+name: Ensemble Risk Review
+version: 1.0.0
+runtimeName: ensemble-risk-review
+trigger: Manual - ensemble
+status: gated
+description: Dispatch the same portfolio task to multiple analyst roles and combine opinions through a deterministic aggregation policy.
+requiredSkills:
+  - portfolio-analysis
+  - portfolio-risk-synthesis
+requiredConnections:
+  - slot: brokerage
+    label: Brokerage account
+    capabilities:
+      - portfolio.holdings.read
+      - portfolio.positions.read
+      - market.quotes.read
+stages:
+  - type: agent
+    agent: Portfolio Review Analyst
+    template: Coordinator
+    role: Normalize task and evidence bundle
+    status: queued
+    conn: fan out
+  - type: ensemble
+    label: Ensemble analysis
+    analysts:
+      - n: Risk analyst
+        w: "1.0"
+      - n: Fundamental analyst
+        w: "1.0"
+      - n: Technical analyst
+        w: "0.75"
+      - n: Rules gate
+        w: "1.5"
+    aggregator: Deterministic weighted vote - disagreements preserved - final judge optional
+    conn: on consensus
+  - type: agent
+    agent: Portfolio Review Analyst
+    template: Report
+    role: Combine consensus, disagreements, and next checks
+    status: idle
+schedule:
+  supported: true
+  default:
+    frequency: manual
+    timezone: project

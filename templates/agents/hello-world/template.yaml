@@ -1,0 +1,13 @@
+kind: agent
+id: hello-world
+name: Hello World Agent
+version: 1.0.0
+status: published
+template: Workbench
+description: Small Flue starter agent kept for runtime smoke tests.
+instructionsFile: instructions.md
+requiredSkills: []
+requiredConnections: []
+config:
+  agentName: hello-world
+  wake: false
