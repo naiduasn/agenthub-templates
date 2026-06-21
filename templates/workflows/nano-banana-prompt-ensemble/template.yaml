@@ -1,0 +1,119 @@
+kind: workflow
+id: nano-banana-prompt-ensemble
+name: Nano Banana Prompt Ensemble
+version: 1.0.0
+runtimeName: nano-banana-prompt-ensemble
+trigger: Manual - prompt ensemble
+status: published
+category: Creative
+description: Generate multiple Nano Banana image candidates from prompt variations, describe each image, then choose the strongest candidate with weighted judging.
+requiredSkills:
+  - google-gemini-media
+  - brand-safety-review
+requiredConnections:
+  - slot: generator
+    label: Google Gemini media provider
+    capabilities:
+      - creative.images.generate
+      - creative.images.edit
+approvalGates:
+  - id: review_selected_candidate
+    label: Review selected image candidate before publishing or reuse
+    capabilities:
+      - creative.images.generate
+inputs:
+  - user.prompt
+  - secret:gemini_api_key
+outputs:
+  - image.candidates[]
+  - image.descriptions[]
+  - selected.image
+  - artifact:nano-banana-ensemble-report.md
+stages:
+  - type: fanout
+    label: Generate image candidates
+    mode: parallel
+    input: prompt.variants[]
+    maxConcurrency: 4
+    inputs:
+      - user.prompt
+      - secret:gemini_api_key
+    outputs:
+      - image.candidates[]
+    items:
+      - id: classic
+        prompt: "{{request}}. Render as a refined editorial portrait with natural light, elegant composition, and restrained color palette."
+        direction: classic editorial
+      - id: cinematic
+        prompt: "{{request}}. Render as a cinematic scene with dramatic but tasteful lighting, rich depth, and premium visual polish."
+        direction: cinematic depth
+      - id: minimal
+        prompt: "{{request}}. Render as a minimal modern portrait with clean background, soft contrast, and calm visual rhythm."
+        direction: minimal modern
+      - id: heritage
+        prompt: "{{request}}. Render with culturally respectful traditional details, warm ambience, and realistic textile richness."
+        direction: heritage detail
+    branch:
+      type: image
+      label: Generate {{item.id}} candidate
+      provider: nano-banana-pro
+      model: gemini-3-pro-image-preview
+      prompt: "{{item.prompt}}"
+      resolution: 1K
+      secretRef: secret:gemini_api_key
+      artifactName: candidate-{{item.id}}.png
+      inputs:
+        - item.prompt
+        - secret:gemini_api_key
+      outputs:
+        - image.candidate
+  - type: fanout
+    label: Describe image candidates
+    mode: parallel
+    input: image.candidates[]
+    maxConcurrency: 4
+    inputs:
+      - image.candidates[]
+    outputs:
+      - image.descriptions[]
+    branch:
+      type: vision
+      label: Describe {{item.artifactName}}
+      model: gemini-2.5-flash
+      prompt: Describe this candidate and score it for prompt alignment, visual quality, cultural fit, safety, lighting, composition, and mood.
+      secretRef: secret:gemini_api_key
+      inputs:
+        - image.candidate
+      outputs:
+        - image.description
+  - type: judge
+    label: Select best image candidate
+    model: gemini-2.5-flash
+    instruction: Pick the strongest image candidate. Prefer prompt alignment, tasteful visual quality, cultural fit, and safety. Return WINNER with the artifact name and a short reason.
+    weights:
+      prompt_alignment: 0.35
+      visual_quality: 0.25
+      cultural_fit: 0.2
+      safety: 0.2
+    inputs:
+      - image.candidates[]
+      - image.descriptions[]
+    outputs:
+      - selected.image
+      - selected.reason
+  - type: report
+    label: Prompt ensemble report
+    format: md
+    summaryType: image selection
+    artifactName: nano-banana-ensemble-report.md
+    inputs:
+      - image.descriptions[]
+      - selected.image
+      - selected.reason
+    outputs:
+      - artifact:nano-banana-ensemble-report.md
+schedule:
+  supported: false
+  default:
+    frequency: manual
+    timezone: project

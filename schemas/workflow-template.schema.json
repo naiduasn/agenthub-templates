@@ -30,7 +30,19 @@
         "required": ["type"],
         "additionalProperties": true,
         "properties": {
-          "type": { "enum": ["agent", "approval", "ensemble"] }
+          "type": {
+            "enum": [
+              "agent",
+              "approval",
+              "ensemble",
+              "fanout",
+              "image",
+              "judge",
+              "loop",
+              "report",
+              "vision"
+            ]
+          }
         }
       }
     }

@@ -52,12 +52,12 @@ Templates use a small category taxonomy in YAML metadata. Prefer these category 
 
 ## Current Catalog Highlights
 
-- Trading: `portfolio-review`, `ensemble-risk-review`, `market-briefing`.
+- Trading: `portfolio-review`, `ensemble-risk-review`, `market-briefing`, `intraday-option-signal-loop`.
 - Productivity: `meeting-to-actions`, `inbox-prioritization`.
 - Support: `support-ticket-resolution`.
 - Research and learning: `research-brief`, `learning-plan-coach`.
 - Writing: `content-brief-to-publish`.
-- Creative: `campaign-image-pack`, `short-form-video-production`, `creative-asset-localization`, `gemini-image-to-video`.
+- Creative: `campaign-image-pack`, `short-form-video-production`, `creative-asset-localization`, `gemini-image-to-video`, `nano-banana-prompt-ensemble`.
 - Developer and data: `pr-review-closeout`, `incident-postmortem`, `data-quality-monitor`.
 
 ## Source Notes And Credits

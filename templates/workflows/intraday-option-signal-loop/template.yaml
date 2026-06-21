@@ -1,0 +1,80 @@
+kind: workflow
+id: intraday-option-signal-loop
+name: Intraday Option Signal Loop
+version: 1.0.0
+runtimeName: intraday-option-signal-loop
+trigger: Manual or scheduled - market watch loop
+status: gated
+category: Trading
+description: Run bounded market-watch ticks, evaluate compact temporal history, emit signal-only decisions, and summarize the session. No orders are placed.
+requiredSkills:
+  - market-briefing
+  - portfolio-risk-synthesis
+requiredConnections:
+  - slot: market-data
+    label: Market data provider
+    capabilities:
+      - market.quotes.read
+      - market.ohlc.read
+      - market.news.read
+inputs:
+  - market.symbol
+  - risk.profile
+  - loop.maxIterations
+outputs:
+  - loop.ticks[]
+  - signal.events[]
+  - artifact:intraday-signal-summary.md
+stages:
+  - type: loop
+    id: market_watch
+    label: Market watch loop
+    timezone: Asia/Kolkata
+    interval: 60s
+    maxIterations: 3
+    emitSignals: all
+    signalType: intraday_option_signal
+    signalThreshold: 0.6
+    history:
+      retain: 20
+      compactEvery: 5
+    inputs:
+      - market.symbol
+      - risk.profile
+      - loop.history
+    outputs:
+      - loop.ticks[]
+      - signal.events[]
+    tick:
+      - type: agent
+        agent: Intraday Signal Evaluator
+        template: Trading Research
+        role: >
+          Evaluate the current tick using the snapshot and compact history. This is signal-only.
+          Never place orders. Return ACTION: no_action|watch|entry|exit|stop,
+          CONFIDENCE: 0.0-1.0, SUMMARY: one short sentence.
+        inputs:
+          - loop.snapshot
+          - loop.history
+          - risk.profile
+        outputs:
+          - trade.intent
+  - type: report
+    label: Intraday signal summary
+    format: md
+    summaryType: signal session
+    artifactName: intraday-signal-summary.md
+    inputs:
+      - loop.ticks[]
+      - signal.events[]
+    outputs:
+      - artifact:intraday-signal-summary.md
+schedule:
+  supported: true
+  default:
+    frequency: manual
+    timezone: Asia/Kolkata
+  examples:
+    - label: India cash market session
+      cron: "*/1 9-15 * * 1-5"
+      timezone: Asia/Kolkata
