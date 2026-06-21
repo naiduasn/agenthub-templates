@@ -1,0 +1,22 @@
+kind: skill
+id: calendar-planning
+name: Calendar Planning
+version: 1.0.0
+status: active
+category: Productivity
+description: Find planning windows, prepare agenda blocks, and draft calendar changes for approval.
+manifest:
+  capabilities:
+    - calendar.events.read
+    - calendar.events.write
+  inputs:
+    - calendars
+    - constraints
+    - planningGoal
+  outputs:
+    - availabilitySummary
+    - proposedSchedule
+    - calendarDrafts
+  safety:
+    writeRequiresApproval: true
+    respectFocusBlocks: true

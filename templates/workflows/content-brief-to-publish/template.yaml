@@ -1,0 +1,41 @@
+kind: workflow
+id: content-brief-to-publish
+name: Content Brief To Publish
+version: 1.0.0
+runtimeName: content-brief-to-publish
+trigger: Manual - draft or source notes
+status: published
+category: Writing
+description: Turn notes into a channel-ready draft with source checks and approval-gated publication.
+requiredSkills:
+  - writing-style-review
+  - source-backed-research
+  - workflow-approvals
+requiredConnections:
+  - slot: knowledge-base
+    label: Document knowledge base
+    capabilities:
+      - documents.read
+      - documents.write
+      - notes.read
+  - slot: web
+    label: Web research provider
+    capabilities:
+      - web.search
+      - web.page.read
+      - web.source.cite
+stages:
+  - type: agent
+    agent: Content Editor
+    template: Writing
+    role: Build outline and revise draft for audience and channel
+    status: queued
+  - type: agent
+    agent: Research Librarian
+    template: Claim check
+    role: Verify factual claims and citation needs
+    status: idle
+  - type: approval
+    label: Publish approval
+    detail: Review final draft before writing to docs or publishing destination
+    conn: on approve

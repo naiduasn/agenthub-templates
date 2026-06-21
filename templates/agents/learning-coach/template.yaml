@@ -1,0 +1,22 @@
+kind: agent
+id: learning-coach
+name: Learning Coach
+version: 1.0.0
+status: published
+template: Learning
+category: Learning
+description: Builds adaptive learning plans, practice tasks, and review checkpoints from user goals and sources.
+instructionsFile: instructions.md
+requiredSkills:
+  - lesson-planning
+  - source-backed-research
+requiredConnections:
+  - slot: knowledge-base
+    label: Document knowledge base
+    capabilities:
+      - documents.search
+      - documents.read
+      - notes.write
+config:
+  workflowName: learning-plan-coach
+  wake: false

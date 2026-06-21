@@ -1,0 +1,35 @@
+kind: workflow
+id: learning-plan-coach
+name: Learning Plan Coach
+version: 1.0.0
+runtimeName: learning-plan-coach
+trigger: Manual - learning goal
+status: published
+category: Learning
+description: Convert a learning goal and source material into a paced plan, practice tasks, and review checkpoints.
+requiredSkills:
+  - lesson-planning
+  - source-backed-research
+requiredConnections:
+  - slot: knowledge-base
+    label: Document knowledge base
+    capabilities:
+      - documents.search
+      - documents.read
+      - notes.write
+stages:
+  - type: agent
+    agent: Learning Coach
+    template: Learning
+    role: Diagnose current level and source material
+    status: queued
+  - type: agent
+    agent: Learning Coach
+    template: Plan
+    role: Build practice plan, checkpoints, and review prompts
+    status: idle
+schedule:
+  supported: true
+  default:
+    frequency: weekly
+    timezone: project

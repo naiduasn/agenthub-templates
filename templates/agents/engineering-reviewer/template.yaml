@@ -1,0 +1,24 @@
+kind: agent
+id: engineering-reviewer
+name: Engineering Reviewer
+version: 1.0.0
+status: published
+template: Developer
+category: Developer
+description: Reviews pull requests, investigates CI failures, and prepares approval-gated engineering follow-up.
+instructionsFile: instructions.md
+requiredSkills:
+  - repository-review
+  - ci-failure-triage
+  - workflow-approvals
+requiredConnections:
+  - slot: git
+    label: Git provider
+    capabilities:
+      - git.repositories.read
+      - git.code.search
+      - git.pull_requests.read
+      - ci.runs.read
+config:
+  workflowName: pr-review-closeout
+  wake: true

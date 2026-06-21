@@ -1,0 +1,23 @@
+kind: agent
+id: data-quality-analyst
+name: Data Quality Analyst
+version: 1.0.0
+status: published
+template: Data
+category: Data
+description: Runs read-only data quality checks and summarizes freshness, anomalies, and metric risks.
+instructionsFile: instructions.md
+requiredSkills:
+  - sql-data-quality
+  - source-backed-research
+requiredConnections:
+  - slot: warehouse
+    label: Warehouse query
+    capabilities:
+      - warehouse.schema.read
+      - warehouse.query.read
+      - metrics.definitions.read
+      - datasets.profile.read
+config:
+  workflowName: data-quality-monitor
+  wake: true

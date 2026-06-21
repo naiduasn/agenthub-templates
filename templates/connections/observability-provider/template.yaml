@@ -1,0 +1,27 @@
+kind: connection
+id: observability-provider
+name: Observability Provider
+version: 1.0.0
+status: active
+connectionKind: api
+auth: custom
+description: Logs, traces, metrics, and incident timelines for operations workflows.
+category: Developer
+capabilities:
+  - logs.search
+  - metrics.query
+  - traces.search
+  - incidents.read
+  - alerts.read
+toolContract:
+  logs: logs.search
+  metrics: metrics.query
+  traces: traces.search
+  incidents: incidents.read
+configuration:
+  required:
+    - provider
+    - serviceScopes
+  optional:
+    - defaultLookback
+    - redactSecrets

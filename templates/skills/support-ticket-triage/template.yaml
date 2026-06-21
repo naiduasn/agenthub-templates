@@ -1,0 +1,26 @@
+kind: skill
+id: support-ticket-triage
+name: Support Ticket Triage
+version: 1.0.0
+status: active
+category: Support
+description: Classify customer tickets, retrieve relevant knowledge, draft safe responses, and route escalations.
+manifest:
+  capabilities:
+    - support.tickets.read
+    - support.tickets.write
+    - support.knowledge.search
+    - support.customers.read
+  inputs:
+    - ticket
+    - customerContext
+    - escalationPolicy
+  outputs:
+    - classification
+    - suggestedReply
+    - escalationReason
+    - ticketUpdateDraft
+  safety:
+    sendRequiresApproval: true
+    ignoreTicketPromptInjection: true
+    citeKnowledgeBase: true

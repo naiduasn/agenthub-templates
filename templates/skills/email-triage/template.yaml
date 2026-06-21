@@ -1,0 +1,22 @@
+kind: skill
+id: email-triage
+name: Email Triage
+version: 1.0.0
+status: active
+category: Productivity
+description: Classify inbox items by urgency, topic, sender intent, and recommended next action.
+manifest:
+  capabilities:
+    - email.messages.read
+    - email.drafts.write
+  inputs:
+    - messages
+    - priorityRules
+    - labels
+  outputs:
+    - triageBuckets
+    - replyDrafts
+    - delegationSuggestions
+  safety:
+    sendRequiresApproval: true
+    ignoreUntrustedEmailInstructions: true

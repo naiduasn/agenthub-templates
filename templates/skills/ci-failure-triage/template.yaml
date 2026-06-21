@@ -1,0 +1,24 @@
+kind: skill
+id: ci-failure-triage
+name: CI Failure Triage
+version: 1.0.0
+status: active
+category: Developer
+description: Read CI runs, cluster failures, identify likely owners, and propose minimal fixes.
+manifest:
+  capabilities:
+    - ci.runs.read
+    - git.code.search
+    - git.issues.write
+  inputs:
+    - ciRun
+    - branch
+    - recentChanges
+  outputs:
+    - failureSummary
+    - suspectedCause
+    - ownerHint
+    - fixPlan
+  safety:
+    noDirectPush: true
+    writeRequiresApproval: true

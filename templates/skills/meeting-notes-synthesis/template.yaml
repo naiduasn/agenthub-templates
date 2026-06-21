@@ -1,0 +1,25 @@
+kind: skill
+id: meeting-notes-synthesis
+name: Meeting Notes Synthesis
+version: 1.0.0
+status: active
+category: Productivity
+description: Summarize meeting transcripts into decisions, blockers, action items, and follow-up drafts.
+manifest:
+  capabilities:
+    - meetings.transcripts.read
+    - documents.write
+    - email.drafts.write
+  inputs:
+    - transcript
+    - attendees
+    - meetingObjective
+  outputs:
+    - summary
+    - decisions
+    - blockers
+    - actionItems
+    - followUpDraft
+  safety:
+    sendRequiresApproval: true
+    redactSensitiveContent: true

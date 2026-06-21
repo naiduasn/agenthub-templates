@@ -1,0 +1,25 @@
+kind: skill
+id: sql-data-quality
+name: SQL Data Quality
+version: 1.0.0
+status: active
+category: Data
+description: Profile datasets, check metric freshness, and diagnose data quality anomalies with read-only queries.
+manifest:
+  capabilities:
+    - warehouse.schema.read
+    - warehouse.query.read
+    - metrics.definitions.read
+    - datasets.profile.read
+  inputs:
+    - dataset
+    - metrics
+    - freshnessWindow
+  outputs:
+    - qualityChecks
+    - anomalySummary
+    - failingRowsSample
+    - remediationPlan
+  safety:
+    readOnly: true
+    capRowsReturned: true

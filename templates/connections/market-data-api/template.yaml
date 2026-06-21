@@ -1,0 +1,28 @@
+kind: connection
+id: market-data-api
+name: Market Data API
+version: 1.0.0
+status: active
+connectionKind: api
+auth: custom
+description: Provider-neutral market data source for quotes, watchlists, news, and macro context.
+category: Trading
+capabilities:
+  - market.quotes.read
+  - market.ohlc.read
+  - market.news.read
+  - market.watchlist.read
+  - macro.calendar.read
+toolContract:
+  quotes: market.quotes.read
+  candles: market.ohlc.read
+  news: market.news.read
+  watchlist: market.watchlist.read
+configuration:
+  required:
+    - baseUrl
+    - authMode
+  optional:
+    - symbols
+    - exchange
+    - region

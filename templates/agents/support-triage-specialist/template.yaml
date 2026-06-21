@@ -1,0 +1,23 @@
+kind: agent
+id: support-triage-specialist
+name: Support Triage Specialist
+version: 1.0.0
+status: published
+template: Customer Ops
+category: Support
+description: Classifies support tickets, drafts grounded responses, and escalates risky cases with context.
+instructionsFile: instructions.md
+requiredSkills:
+  - support-ticket-triage
+  - workflow-approvals
+requiredConnections:
+  - slot: support
+    label: Customer support suite
+    capabilities:
+      - support.tickets.read
+      - support.tickets.write
+      - support.knowledge.search
+      - support.customers.read
+config:
+  workflowName: support-ticket-resolution
+  wake: true

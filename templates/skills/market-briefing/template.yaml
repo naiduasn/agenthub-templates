@@ -1,0 +1,26 @@
+kind: skill
+id: market-briefing
+name: Market Briefing
+version: 1.0.0
+status: active
+category: Trading
+description: Build a read-only market brief from watchlists, quotes, news, and macro calendar context.
+manifest:
+  capabilities:
+    - market.watchlist.read
+    - market.quotes.read
+    - market.news.read
+    - macro.calendar.read
+  inputs:
+    - watchlist
+    - benchmarkSymbols
+    - briefingDate
+  outputs:
+    - marketNarrative
+    - notableMovers
+    - riskEvents
+    - watchlistActions
+  safety:
+    readOnly: true
+    disallowOrderPlacement: true
+    requireSourceLinks: true

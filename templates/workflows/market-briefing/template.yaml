@@ -1,0 +1,41 @@
+kind: workflow
+id: market-briefing
+name: Market Briefing
+version: 1.0.0
+runtimeName: market-briefing
+trigger: Scheduled - watchlist briefing
+status: published
+category: Trading
+description: Produce a read-only briefing for a watchlist using quotes, news, and macro calendar context.
+requiredSkills:
+  - market-briefing
+  - workflow-approvals
+requiredConnections:
+  - slot: market-data
+    label: Market data source
+    capabilities:
+      - market.watchlist.read
+      - market.quotes.read
+      - market.news.read
+      - macro.calendar.read
+stages:
+  - type: agent
+    agent: Market Briefing Analyst
+    template: Trading Research
+    role: Gather watchlist, quote, news, and macro context
+    status: queued
+    conn: on schedule
+  - type: approval
+    label: Publish briefing approval
+    detail: Review source quality and risk language before posting externally
+    conn: on approve
+  - type: agent
+    agent: Market Briefing Analyst
+    template: Report
+    role: Write source-backed market brief artifact
+    status: idle
+schedule:
+  supported: true
+  default:
+    cron: "30 8 * * 1-5"
+    timezone: project

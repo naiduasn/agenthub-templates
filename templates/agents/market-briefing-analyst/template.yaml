@@ -1,0 +1,23 @@
+kind: agent
+id: market-briefing-analyst
+name: Market Briefing Analyst
+version: 1.0.0
+status: published
+template: Trading Research
+category: Trading
+description: Produces read-only market briefs from watchlists, quotes, news, and macro events.
+instructionsFile: instructions.md
+requiredSkills:
+  - market-briefing
+  - workflow-approvals
+requiredConnections:
+  - slot: market-data
+    label: Market data source
+    capabilities:
+      - market.watchlist.read
+      - market.quotes.read
+      - market.news.read
+      - macro.calendar.read
+config:
+  workflowName: market-briefing
+  wake: true

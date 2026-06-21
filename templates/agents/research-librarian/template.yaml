@@ -1,0 +1,27 @@
+kind: agent
+id: research-librarian
+name: Research Librarian
+version: 1.0.0
+status: published
+template: Research
+category: Research
+description: Plans source-backed research, gathers evidence, and writes cited briefs.
+instructionsFile: instructions.md
+requiredSkills:
+  - source-backed-research
+  - workflow-approvals
+requiredConnections:
+  - slot: web
+    label: Web research provider
+    capabilities:
+      - web.search
+      - web.page.read
+      - web.source.cite
+  - slot: knowledge-base
+    label: Document knowledge base
+    capabilities:
+      - documents.search
+      - documents.read
+config:
+  workflowName: research-brief
+  wake: false

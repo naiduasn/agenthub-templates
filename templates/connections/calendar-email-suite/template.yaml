@@ -1,0 +1,29 @@
+kind: connection
+id: calendar-email-suite
+name: Calendar And Email Suite
+version: 1.0.0
+status: active
+connectionKind: api
+auth: oauth
+description: Workspace connection for reading messages, calendar events, meeting notes, and sending approved follow-ups.
+category: Productivity
+capabilities:
+  - email.messages.read
+  - email.drafts.write
+  - email.messages.send
+  - calendar.events.read
+  - calendar.events.write
+  - meetings.transcripts.read
+toolContract:
+  messages: email.messages.read
+  drafts: email.drafts.write
+  events: calendar.events.read
+  transcripts: meetings.transcripts.read
+configuration:
+  required:
+    - provider
+    - oauthScopes
+  optional:
+    - mailboxLabels
+    - calendarIds
+    - sendRequiresApproval

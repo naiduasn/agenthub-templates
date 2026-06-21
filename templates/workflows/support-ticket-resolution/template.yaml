@@ -1,0 +1,35 @@
+kind: workflow
+id: support-ticket-resolution
+name: Support Ticket Resolution
+version: 1.0.0
+runtimeName: support-ticket-resolution
+trigger: New support ticket
+status: published
+category: Support
+description: Classify support tickets, retrieve relevant knowledge, draft a response, and escalate uncertain cases.
+requiredSkills:
+  - support-ticket-triage
+  - workflow-approvals
+requiredConnections:
+  - slot: support
+    label: Customer support suite
+    capabilities:
+      - support.tickets.read
+      - support.tickets.write
+      - support.knowledge.search
+      - support.customers.read
+stages:
+  - type: agent
+    agent: Support Triage Specialist
+    template: Customer Ops
+    role: Classify ticket, retrieve context, and draft response
+    status: queued
+  - type: approval
+    label: Customer-visible update approval
+    detail: Approve response or escalation before writing to helpdesk
+    conn: on approve
+  - type: agent
+    agent: Support Triage Specialist
+    template: Resolution
+    role: Prepare ticket update or escalation package
+    status: idle

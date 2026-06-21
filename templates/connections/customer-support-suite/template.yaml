@@ -1,0 +1,26 @@
+kind: connection
+id: customer-support-suite
+name: Customer Support Suite
+version: 1.0.0
+status: active
+connectionKind: api
+auth: oauth
+description: Helpdesk, CRM, and knowledge-base connection for ticket triage and response drafting.
+category: Support
+capabilities:
+  - support.tickets.read
+  - support.tickets.write
+  - support.knowledge.search
+  - support.customers.read
+  - crm.accounts.read
+toolContract:
+  tickets: support.tickets.read
+  knowledge: support.knowledge.search
+  customers: support.customers.read
+configuration:
+  required:
+    - provider
+    - queues
+  optional:
+    - responseRequiresApproval
+    - escalationRules

@@ -1,0 +1,26 @@
+kind: connection
+id: issue-tracker
+name: Issue Tracker
+version: 1.0.0
+status: active
+connectionKind: api
+auth: oauth
+description: Product or engineering issue tracker used for triage, handoffs, and release follow-up.
+category: Productivity
+capabilities:
+  - issues.read
+  - issues.write
+  - issues.comments.read
+  - issues.comments.write
+  - projects.read
+toolContract:
+  issues: issues.read
+  comments: issues.comments.read
+  projects: projects.read
+configuration:
+  required:
+    - provider
+    - projectKeys
+  optional:
+    - writeRequiresApproval
+    - labels

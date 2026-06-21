@@ -1,0 +1,26 @@
+kind: skill
+id: source-backed-research
+name: Source Backed Research
+version: 1.0.0
+status: active
+category: Research
+description: Search, read, compare, and synthesize sources into a cited research brief.
+manifest:
+  capabilities:
+    - web.search
+    - web.page.read
+    - web.source.cite
+    - documents.search
+    - documents.read
+  inputs:
+    - researchQuestion
+    - sourcePolicy
+    - recencyWindow
+  outputs:
+    - evidenceTable
+    - citedBrief
+    - confidenceNotes
+    - openQuestions
+  safety:
+    requireCitations: true
+    separateFactsFromInference: true

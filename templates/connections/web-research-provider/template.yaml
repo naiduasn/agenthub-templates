@@ -1,0 +1,25 @@
+kind: connection
+id: web-research-provider
+name: Web Research Provider
+version: 1.0.0
+status: active
+connectionKind: api
+auth: custom
+description: Search and retrieval provider for source-backed public web research.
+category: Research
+capabilities:
+  - web.search
+  - web.page.read
+  - web.news.read
+  - web.source.cite
+toolContract:
+  search: web.search
+  read: web.page.read
+  cite: web.source.cite
+configuration:
+  required:
+    - provider
+  optional:
+    - recencyDays
+    - domains
+    - safeSearch

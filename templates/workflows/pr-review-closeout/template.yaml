@@ -1,0 +1,36 @@
+kind: workflow
+id: pr-review-closeout
+name: PR Review Closeout
+version: 1.0.0
+runtimeName: pr-review-closeout
+trigger: Pull request opened or updated
+status: published
+category: Developer
+description: Review pull request changes, inspect CI status, and prepare high-signal review output.
+requiredSkills:
+  - repository-review
+  - ci-failure-triage
+  - workflow-approvals
+requiredConnections:
+  - slot: git
+    label: Git provider
+    capabilities:
+      - git.repositories.read
+      - git.code.search
+      - git.pull_requests.read
+      - ci.runs.read
+stages:
+  - type: agent
+    agent: Engineering Reviewer
+    template: Developer
+    role: Review diff, tests, and release risk
+    status: queued
+  - type: agent
+    agent: Engineering Reviewer
+    template: CI triage
+    role: Summarize failing checks and likely causes
+    status: idle
+  - type: approval
+    label: Post review approval
+    detail: Approve comments or issue updates before writing to git provider
+    conn: on approve

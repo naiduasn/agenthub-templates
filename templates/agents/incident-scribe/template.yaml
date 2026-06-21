@@ -1,0 +1,29 @@
+kind: agent
+id: incident-scribe
+name: Incident Scribe
+version: 1.0.0
+status: published
+template: Developer Ops
+category: Developer
+description: Builds incident timelines, impact summaries, and postmortem drafts from observability data.
+instructionsFile: instructions.md
+requiredSkills:
+  - incident-timeline
+  - workflow-approvals
+requiredConnections:
+  - slot: observability
+    label: Observability provider
+    capabilities:
+      - logs.search
+      - metrics.query
+      - traces.search
+      - incidents.read
+      - alerts.read
+  - slot: tracker
+    label: Issue tracker
+    capabilities:
+      - issues.read
+      - issues.write
+config:
+  workflowName: incident-postmortem
+  wake: true

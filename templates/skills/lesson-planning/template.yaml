@@ -1,0 +1,24 @@
+kind: skill
+id: lesson-planning
+name: Lesson Planning
+version: 1.0.0
+status: active
+category: Learning
+description: Turn a learning goal and source material into a paced plan, exercises, and review checkpoints.
+manifest:
+  capabilities:
+    - documents.search
+    - documents.read
+    - notes.write
+  inputs:
+    - learningGoal
+    - currentLevel
+    - timeBudget
+  outputs:
+    - learningPath
+    - practiceTasks
+    - checkpoints
+    - reviewPrompts
+  safety:
+    askForLevelWhenUnclear: true
+    preserveSourceLinks: true

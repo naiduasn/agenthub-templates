@@ -1,0 +1,25 @@
+kind: connection
+id: warehouse-query
+name: Warehouse Query
+version: 1.0.0
+status: active
+connectionKind: database
+auth: custom
+description: Read-only analytical warehouse connection for data quality and metric diagnostics.
+category: Data
+capabilities:
+  - warehouse.schema.read
+  - warehouse.query.read
+  - metrics.definitions.read
+  - datasets.profile.read
+toolContract:
+  schema: warehouse.schema.read
+  query: warehouse.query.read
+  metrics: metrics.definitions.read
+configuration:
+  required:
+    - engine
+    - connectionStringSecret
+  optional:
+    - queryTimeoutSeconds
+    - allowedSchemas

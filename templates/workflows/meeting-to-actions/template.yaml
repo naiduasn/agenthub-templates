@@ -1,0 +1,41 @@
+kind: workflow
+id: meeting-to-actions
+name: Meeting To Actions
+version: 1.0.0
+runtimeName: meeting-to-actions
+trigger: Manual or transcript uploaded
+status: published
+category: Productivity
+description: Turn a meeting transcript into decisions, action items, owner follow-ups, and approval-gated tracker updates.
+requiredSkills:
+  - meeting-notes-synthesis
+  - action-item-tracking
+  - workflow-approvals
+requiredConnections:
+  - slot: workspace
+    label: Calendar and email suite
+    capabilities:
+      - meetings.transcripts.read
+      - email.drafts.write
+      - calendar.events.read
+  - slot: tracker
+    label: Issue tracker
+    capabilities:
+      - issues.read
+      - issues.write
+stages:
+  - type: agent
+    agent: Operations Assistant
+    template: Company Ops
+    role: Extract decisions, blockers, and action items
+    status: queued
+    conn: transcript ready
+  - type: approval
+    label: Create follow-ups approval
+    detail: Review task drafts and email draft before writing to workspace tools
+    conn: on approve
+  - type: agent
+    agent: Operations Assistant
+    template: Follow-up
+    role: Prepare tracker tasks, reminders, and follow-up draft
+    status: idle

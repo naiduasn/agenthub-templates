@@ -1,0 +1,29 @@
+kind: agent
+id: content-editor
+name: Content Editor
+version: 1.0.0
+status: published
+template: Writing
+category: Writing
+description: Turns rough notes into channel-ready drafts with claim checks and human approval.
+instructionsFile: instructions.md
+requiredSkills:
+  - writing-style-review
+  - source-backed-research
+  - workflow-approvals
+requiredConnections:
+  - slot: knowledge-base
+    label: Document knowledge base
+    capabilities:
+      - documents.read
+      - documents.write
+      - notes.read
+  - slot: web
+    label: Web research provider
+    capabilities:
+      - web.search
+      - web.page.read
+      - web.source.cite
+config:
+  workflowName: content-brief-to-publish
+  wake: false

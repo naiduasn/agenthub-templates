@@ -1,0 +1,25 @@
+kind: skill
+id: repository-review
+name: Repository Review
+version: 1.0.0
+status: active
+category: Developer
+description: Review code changes for correctness, risk, tests, and release impact.
+manifest:
+  capabilities:
+    - git.repositories.read
+    - git.code.search
+    - git.pull_requests.read
+    - git.pull_requests.write
+  inputs:
+    - pullRequest
+    - reviewScope
+    - riskAreas
+  outputs:
+    - findings
+    - testGaps
+    - releaseRisks
+    - reviewCommentDrafts
+  safety:
+    writeRequiresApproval: true
+    findingsFirst: true

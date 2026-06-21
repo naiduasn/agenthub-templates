@@ -1,0 +1,25 @@
+kind: skill
+id: writing-style-review
+name: Writing Style Review
+version: 1.0.0
+status: active
+category: Writing
+description: Edit drafts for voice, clarity, claims, structure, and channel-specific publication readiness.
+manifest:
+  capabilities:
+    - documents.read
+    - documents.write
+    - notes.read
+  inputs:
+    - draft
+    - audience
+    - styleGuide
+    - channel
+  outputs:
+    - editedDraft
+    - claimChecks
+    - toneNotes
+    - publishChecklist
+  safety:
+    flagUnsupportedClaims: true
+    writeRequiresApproval: true

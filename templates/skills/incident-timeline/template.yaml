@@ -1,0 +1,26 @@
+kind: skill
+id: incident-timeline
+name: Incident Timeline
+version: 1.0.0
+status: active
+category: Developer
+description: Reconstruct incidents from logs, metrics, alerts, deploys, and human notes.
+manifest:
+  capabilities:
+    - logs.search
+    - metrics.query
+    - traces.search
+    - incidents.read
+    - issues.comments.write
+  inputs:
+    - incidentId
+    - serviceScope
+    - timeWindow
+  outputs:
+    - timeline
+    - impactSummary
+    - contributingFactors
+    - followUpDrafts
+  safety:
+    redactSecrets: true
+    markUnknowns: true

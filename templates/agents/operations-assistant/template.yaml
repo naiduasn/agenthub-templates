@@ -1,0 +1,31 @@
+kind: agent
+id: operations-assistant
+name: Operations Assistant
+version: 1.0.0
+status: published
+template: Company Ops
+category: Productivity
+description: Turns inboxes, meetings, and calendars into prioritized work with approval-gated writes.
+instructionsFile: instructions.md
+requiredSkills:
+  - email-triage
+  - meeting-notes-synthesis
+  - action-item-tracking
+  - calendar-planning
+  - workflow-approvals
+requiredConnections:
+  - slot: workspace
+    label: Calendar and email suite
+    capabilities:
+      - email.messages.read
+      - email.drafts.write
+      - calendar.events.read
+      - meetings.transcripts.read
+  - slot: tracker
+    label: Issue tracker
+    capabilities:
+      - issues.read
+      - issues.write
+config:
+  workflowName: meeting-to-actions
+  wake: true

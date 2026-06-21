@@ -1,0 +1,29 @@
+kind: connection
+id: git-provider
+name: Git Provider
+version: 1.0.0
+status: active
+connectionKind: api
+auth: oauth
+description: Repository connection for pull requests, issues, code search, branches, and CI metadata.
+category: Developer
+capabilities:
+  - git.repositories.read
+  - git.code.search
+  - git.pull_requests.read
+  - git.pull_requests.write
+  - git.issues.read
+  - git.issues.write
+  - ci.runs.read
+toolContract:
+  repositories: git.repositories.read
+  pullRequests: git.pull_requests.read
+  issues: git.issues.read
+  ciRuns: ci.runs.read
+configuration:
+  required:
+    - provider
+    - repositories
+  optional:
+    - writeRequiresApproval
+    - allowedBranches

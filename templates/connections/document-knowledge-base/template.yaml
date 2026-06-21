@@ -1,0 +1,26 @@
+kind: connection
+id: document-knowledge-base
+name: Document Knowledge Base
+version: 1.0.0
+status: active
+connectionKind: api
+auth: oauth
+description: Internal documents, wiki, drive, or notes repository used for source-grounded research and writing.
+category: Learning
+capabilities:
+  - documents.search
+  - documents.read
+  - documents.write
+  - notes.read
+  - notes.write
+toolContract:
+  search: documents.search
+  read: documents.read
+  write: documents.write
+configuration:
+  required:
+    - provider
+    - collections
+  optional:
+    - citationStyle
+    - writeRequiresApproval

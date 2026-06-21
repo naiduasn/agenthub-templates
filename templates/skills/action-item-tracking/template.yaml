@@ -1,0 +1,23 @@
+kind: skill
+id: action-item-tracking
+name: Action Item Tracking
+version: 1.0.0
+status: active
+category: Productivity
+description: Convert decisions and commitments into owner, due date, priority, and tracker-ready tasks.
+manifest:
+  capabilities:
+    - issues.read
+    - issues.write
+    - calendar.events.write
+  inputs:
+    - actionItems
+    - owners
+    - projectKey
+  outputs:
+    - taskDrafts
+    - calendarReminders
+    - unresolvedOwnerQuestions
+  safety:
+    writeRequiresApproval: true
+    preserveHumanOwners: true

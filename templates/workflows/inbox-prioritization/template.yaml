@@ -1,0 +1,40 @@
+kind: workflow
+id: inbox-prioritization
+name: Inbox Prioritization
+version: 1.0.0
+runtimeName: inbox-prioritization
+trigger: Scheduled - inbox triage
+status: published
+category: Productivity
+description: Classify unread messages, draft responses, and surface urgent work without sending anything automatically.
+requiredSkills:
+  - email-triage
+  - calendar-planning
+  - workflow-approvals
+requiredConnections:
+  - slot: workspace
+    label: Calendar and email suite
+    capabilities:
+      - email.messages.read
+      - email.drafts.write
+      - calendar.events.read
+stages:
+  - type: agent
+    agent: Operations Assistant
+    template: Company Ops
+    role: Read scoped inbox batch and classify by urgency
+    status: queued
+  - type: agent
+    agent: Operations Assistant
+    template: Drafting
+    role: Prepare reply drafts and calendar suggestions
+    status: idle
+  - type: approval
+    label: Send or schedule approval
+    detail: Human approval required before messages or calendar updates are sent
+    conn: on approve
+schedule:
+  supported: true
+  default:
+    cron: "0 9 * * 1-5"
+    timezone: project

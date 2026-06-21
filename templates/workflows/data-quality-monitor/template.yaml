@@ -1,0 +1,40 @@
+kind: workflow
+id: data-quality-monitor
+name: Data Quality Monitor
+version: 1.0.0
+runtimeName: data-quality-monitor
+trigger: Scheduled - dataset check
+status: published
+category: Data
+description: Run read-only dataset checks and produce a freshness, anomaly, and metric-risk report.
+requiredSkills:
+  - sql-data-quality
+  - workflow-approvals
+requiredConnections:
+  - slot: warehouse
+    label: Warehouse query
+    capabilities:
+      - warehouse.schema.read
+      - warehouse.query.read
+      - metrics.definitions.read
+      - datasets.profile.read
+stages:
+  - type: agent
+    agent: Data Quality Analyst
+    template: Data
+    role: Inspect schema, freshness, row counts, and configured checks
+    status: queued
+  - type: approval
+    label: Sample data approval
+    detail: Approve any sample-row artifact before sharing outside data team
+    conn: on approve
+  - type: agent
+    agent: Data Quality Analyst
+    template: Report
+    role: Write quality report and remediation plan
+    status: idle
+schedule:
+  supported: true
+  default:
+    cron: "0 7 * * *"
+    timezone: project

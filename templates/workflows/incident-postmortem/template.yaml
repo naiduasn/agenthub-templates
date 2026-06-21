@@ -1,0 +1,41 @@
+kind: workflow
+id: incident-postmortem
+name: Incident Postmortem
+version: 1.0.0
+runtimeName: incident-postmortem
+trigger: Incident opened or closed
+status: published
+category: Developer
+description: Reconstruct incident timeline, summarize impact, and draft postmortem follow-ups.
+requiredSkills:
+  - incident-timeline
+  - workflow-approvals
+requiredConnections:
+  - slot: observability
+    label: Observability provider
+    capabilities:
+      - logs.search
+      - metrics.query
+      - traces.search
+      - incidents.read
+      - alerts.read
+  - slot: tracker
+    label: Issue tracker
+    capabilities:
+      - issues.read
+      - issues.write
+stages:
+  - type: agent
+    agent: Incident Scribe
+    template: Developer Ops
+    role: Build timeline from alerts, logs, metrics, and notes
+    status: queued
+  - type: agent
+    agent: Incident Scribe
+    template: Postmortem
+    role: Draft impact summary, contributing factors, and follow-ups
+    status: idle
+  - type: approval
+    label: Follow-up approval
+    detail: Approve postmortem tasks before writing to tracker
+    conn: on approve
