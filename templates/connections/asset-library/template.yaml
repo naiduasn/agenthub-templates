@@ -1,0 +1,28 @@
+kind: connection
+id: asset-library
+name: Asset Library
+version: 1.0.0
+status: active
+connectionKind: api
+auth: oauth
+description: Brand assets, reference images, generated outputs, approvals, and reusable creative files.
+category: Creative
+capabilities:
+  - assets.search
+  - assets.read
+  - assets.write
+  - assets.metadata.write
+  - brand.guidelines.read
+toolContract:
+  search: assets.search
+  read: assets.read
+  write: assets.write
+  guidelines: brand.guidelines.read
+configuration:
+  required:
+    - provider
+    - collections
+  optional:
+    - writeRequiresApproval
+    - allowedFormats
+    - retentionPolicy

@@ -1,0 +1,29 @@
+kind: skill
+id: video-generation
+name: Video Generation
+version: 1.0.0
+status: active
+category: Creative
+description: Generate, edit, or assemble short video assets from approved storyboards and reference materials.
+manifest:
+  capabilities:
+    - creative.video.generate
+    - creative.video.edit
+    - creative.audio.generate
+    - creative.tasks.read
+    - assets.write
+  inputs:
+    - storyboard
+    - scenePrompts
+    - referenceAssets
+    - duration
+    - aspectRatio
+  outputs:
+    - videoDrafts
+    - sceneMetadata
+    - renderStatus
+    - assetLinks
+  safety:
+    requireHumanReview: true
+    preserveGenerationMetadata: true
+    avoidUnlicensedCharacters: true

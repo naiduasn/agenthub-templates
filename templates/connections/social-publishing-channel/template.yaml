@@ -1,0 +1,27 @@
+kind: connection
+id: social-publishing-channel
+name: Social Publishing Channel
+version: 1.0.0
+status: active
+connectionKind: api
+auth: oauth
+description: Approval-gated publishing destination for social, campaign, or content channels.
+category: Creative
+capabilities:
+  - social.channels.read
+  - social.posts.draft
+  - social.posts.schedule
+  - social.posts.publish
+  - social.analytics.read
+toolContract:
+  channels: social.channels.read
+  draftPost: social.posts.draft
+  schedulePost: social.posts.schedule
+  publishPost: social.posts.publish
+configuration:
+  required:
+    - provider
+    - channels
+  optional:
+    - publishRequiresApproval
+    - defaultCampaignTags

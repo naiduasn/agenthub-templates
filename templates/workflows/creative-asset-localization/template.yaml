@@ -1,0 +1,67 @@
+kind: workflow
+id: creative-asset-localization
+name: Creative Asset Localization
+version: 1.0.0
+runtimeName: creative-asset-localization
+trigger: Manual - approved source assets
+status: published
+category: Creative
+description: Adapt approved image and video assets into locale, channel, size, and accessibility variants.
+requiredSkills:
+  - asset-localization
+  - brand-safety-review
+  - workflow-approvals
+requiredConnections:
+  - slot: generator
+    label: Creative generation provider
+    capabilities:
+      - creative.images.edit
+      - creative.video.edit
+      - creative.tasks.read
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+  - slot: publishing
+    label: Social publishing channel
+    capabilities:
+      - social.posts.draft
+      - social.posts.schedule
+approvalGates:
+  - id: localization_review
+    label: Local market review
+    capabilities:
+      - assets.write
+      - social.posts.draft
+stages:
+  - type: agent
+    agent: Creative Director
+    template: Localization plan
+    role: Define target locales, channels, specs, and review owners
+    status: queued
+  - type: agent
+    agent: Image Production Designer
+    template: Asset localization
+    role: Adapt source image and static creative assets
+    status: idle
+  - type: agent
+    agent: Video Producer
+    template: Video localization
+    role: Adapt source video drafts where video edits are required
+    status: idle
+  - type: approval
+    label: Local review approval
+    detail: Human reviewer approves localized copy, visuals, rights, and channel packaging
+    conn: on approve
+  - type: agent
+    agent: Creative Director
+    template: Package
+    role: Save localized assets and draft publishing package
+    status: idle
+schedule:
+  supported: false
+  default:
+    frequency: manual
+    timezone: project

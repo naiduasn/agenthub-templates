@@ -1,0 +1,65 @@
+kind: workflow
+id: campaign-image-pack
+name: Campaign Image Pack
+version: 1.0.0
+runtimeName: campaign-image-pack
+trigger: Manual - campaign brief
+status: published
+category: Creative
+description: Create an approval-ready pack of branded image variants for a campaign or content channel.
+requiredSkills:
+  - creative-briefing
+  - image-generation
+  - brand-safety-review
+  - workflow-approvals
+requiredConnections:
+  - slot: generator
+    label: Creative generation provider
+    capabilities:
+      - creative.images.generate
+      - creative.images.edit
+      - creative.images.variations
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.search
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+approvalGates:
+  - id: generate_images
+    label: Generate image variants
+    capabilities:
+      - creative.images.generate
+      - creative.images.edit
+  - id: approve_final_assets
+    label: Approve final campaign images
+    capabilities:
+      - assets.write
+stages:
+  - type: agent
+    agent: Creative Director
+    template: Creative
+    role: Build campaign brief, brand constraints, and prompt directions
+    status: queued
+    conn: brief ready
+  - type: approval
+    label: Generation approval
+    detail: Review prompt directions, references, cost guardrails, and rights risks before generation
+    conn: on approve
+  - type: agent
+    agent: Image Production Designer
+    template: Image generation
+    role: Generate and save draft image variants with prompt metadata
+    status: idle
+    conn: on review
+  - type: agent
+    agent: Creative Director
+    template: Brand review
+    role: Review variants and prepare approval-ready asset package
+    status: idle
+schedule:
+  supported: false
+  default:
+    frequency: manual
+    timezone: project

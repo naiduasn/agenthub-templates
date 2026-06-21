@@ -1,0 +1,72 @@
+kind: workflow
+id: short-form-video-production
+name: Short Form Video Production
+version: 1.0.0
+runtimeName: short-form-video-production
+trigger: Manual - video brief
+status: published
+category: Creative
+description: Plan, generate, review, and package short video drafts with human approval gates.
+requiredSkills:
+  - creative-briefing
+  - storyboard-planning
+  - video-generation
+  - brand-safety-review
+  - workflow-approvals
+requiredConnections:
+  - slot: generator
+    label: Creative generation provider
+    capabilities:
+      - creative.video.generate
+      - creative.video.edit
+      - creative.audio.generate
+      - creative.tasks.read
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.search
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+approvalGates:
+  - id: approve_storyboard
+    label: Approve storyboard and references
+    capabilities:
+      - creative.video.generate
+  - id: approve_video_draft
+    label: Approve video draft package
+    capabilities:
+      - assets.write
+stages:
+  - type: agent
+    agent: Creative Director
+    template: Creative
+    role: Create brief, target channel, and review criteria
+    status: queued
+    conn: brief ready
+  - type: agent
+    agent: Video Producer
+    template: Storyboard
+    role: Prepare storyboard, scene prompts, aspect ratio, duration, and references
+    status: idle
+    conn: on approve
+  - type: approval
+    label: Storyboard approval
+    detail: Confirm story, references, rights, provider, and cost guardrails before rendering
+    conn: on approve
+  - type: agent
+    agent: Video Producer
+    template: Video generation
+    role: Generate short draft videos and capture task metadata
+    status: idle
+    conn: on review
+  - type: agent
+    agent: Creative Director
+    template: Brand review
+    role: Review video drafts and prepare final approval package
+    status: idle
+schedule:
+  supported: false
+  default:
+    frequency: manual
+    timezone: project

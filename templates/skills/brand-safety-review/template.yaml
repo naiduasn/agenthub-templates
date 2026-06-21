@@ -1,0 +1,26 @@
+kind: skill
+id: brand-safety-review
+name: Brand Safety Review
+version: 1.0.0
+status: active
+category: Creative
+description: Review generated creative assets for brand fit, policy risks, rights, accessibility, and channel readiness.
+manifest:
+  capabilities:
+    - assets.read
+    - brand.guidelines.read
+    - social.channels.read
+  inputs:
+    - generatedAssets
+    - brandGuidelines
+    - contentPolicy
+    - channel
+  outputs:
+    - reviewFindings
+    - approvalRecommendation
+    - revisionRequests
+    - accessibilityNotes
+  safety:
+    humanApprovalRequired: true
+    flagRightsAndLikenessRisk: true
+    checkTextLegibility: true

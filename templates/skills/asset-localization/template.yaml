@@ -1,0 +1,27 @@
+kind: skill
+id: asset-localization
+name: Asset Localization
+version: 1.0.0
+status: active
+category: Creative
+description: Adapt approved creative assets for languages, markets, channels, dimensions, and accessibility requirements.
+manifest:
+  capabilities:
+    - assets.read
+    - assets.write
+    - brand.guidelines.read
+    - creative.images.edit
+    - creative.video.edit
+  inputs:
+    - sourceAssets
+    - targetLocales
+    - channelSpecs
+    - translationMemory
+  outputs:
+    - localizedAssets
+    - copyVariants
+    - complianceNotes
+    - assetManifest
+  safety:
+    requireNativeReviewForLocale: true
+    preserveOriginalAssetLinks: true

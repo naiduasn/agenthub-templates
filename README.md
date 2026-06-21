@@ -46,6 +46,7 @@ Templates use a small category taxonomy in YAML metadata. Prefer these category 
 - `Research`: web/document research, evidence tables, and cited briefs.
 - `Learning`: study plans, practice tasks, review checkpoints, and source-backed coaching.
 - `Writing`: draft editing, source checks, style review, and approval-gated publishing.
+- `Creative`: image generation, video generation, storyboards, brand review, localization, and channel packaging.
 - `Developer`: pull requests, CI, incidents, runbooks, and engineering operations.
 - `Data`: warehouse analysis, data quality, freshness, and metric diagnostics.
 
@@ -56,6 +57,7 @@ Templates use a small category taxonomy in YAML metadata. Prefer these category 
 - Support: `support-ticket-resolution`.
 - Research and learning: `research-brief`, `learning-plan-coach`.
 - Writing: `content-brief-to-publish`.
+- Creative: `campaign-image-pack`, `short-form-video-production`, `creative-asset-localization`.
 - Developer and data: `pr-review-closeout`, `incident-postmortem`, `data-quality-monitor`.
 
 ## Source Notes And Credits
@@ -67,6 +69,7 @@ Research signals used for this expansion include:
 - Agentic workflow demand and operating model: [McKinsey on agentic AI](https://www.mckinsey.com/capabilities/quantumblack/our-insights/one-year-of-agentic-ai-six-lessons-from-the-people-doing-the-work), [IBM AI agent use cases](https://www.ibm.com/think/topics/ai-agent-use-cases), [Zapier Agents](https://zapier.com/blog/zapier-agents-guide/), and [Zapier AI](https://zapier.com/ai).
 - Research and learning: [OpenAI Deep Research](https://openai.com/index/introducing-deep-research/), [OpenAI Study Mode](https://openai.com/index/chatgpt-study-mode/), [NotebookLM](https://notebooklm.google/), [Khanmigo](https://www.khanmigo.ai/), and [Claude for Education](https://www.anthropic.com/news/introducing-claude-for-education).
 - Productivity and support: [Microsoft Copilot agents overview](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agents-overview), [Microsoft Teams recap](https://support.microsoft.com/en-us/teams/meetings/recap-in-microsoft-teams), [Zoom AI Companion meeting summaries](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0058013), [Zendesk AI agents](https://www.zendesk.com/service/ai/ai-agents/), [Intercom Fin](https://fin.ai/), and [Salesforce Agentforce use cases](https://www.salesforce.com/agentforce/use-cases/).
+- Creative generation: [OpenAI image generation API](https://developers.openai.com/api/docs/guides/image-generation), [OpenAI images and vision guide](https://developers.openai.com/api/docs/guides/images-vision), [Google Veo in Gemini API](https://ai.google.dev/gemini-api/docs/video), and [Runway API docs](https://docs.dev.runwayml.com/). OpenAI's Sora API is marked for discontinuation in official docs/help center as of this review, so video workflows should bind to a project-selected provider rather than assume Sora availability.
 - Developer/data: [GitHub Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent), [GitHub Copilot code review](https://docs.github.com/en/copilot/concepts/agents/code-review), [GitHub Agentic Workflows](https://github.github.com/gh-aw/), [OpenHands](https://github.com/OpenHands/openhands), [SWE-agent](https://swe-agent.com/latest/), [Vanna](https://github.com/vanna-ai/vanna), [WrenAI](https://getwren.ai/oss), and [K8sGPT](https://github.com/k8sgpt-ai/k8sgpt).
 - Trading and finance: [Anthropic finance agents](https://www.anthropic.com/news/finance-agents), [SEC EDGAR APIs](https://www.sec.gov/search-filings/edgar-application-programming-interfaces), [OpenBB](https://github.com/OpenBB-finance/OpenBB), [QuantConnect LEAN](https://github.com/QuantConnect/Lean), [Microsoft Qlib](https://github.com/microsoft/qlib), [FinRL](https://github.com/AI4Finance-Foundation/FinRL), [Hummingbot](https://github.com/hummingbot/hummingbot), [Freqtrade](https://github.com/freqtrade/freqtrade), [Riskfolio-Lib](https://github.com/dcajasn/Riskfolio-Lib), and [skfolio](https://github.com/skfolio/skfolio).
 
@@ -86,6 +89,7 @@ These are intentionally deferred until the catalog has stronger runtime support 
 - Sales prospecting, PMO weekly status, employee onboarding, AP invoice approval, and weekly business analyst.
 - Issue-to-PR coding agent, security remediation, docs/runbook keeper, and test coverage agent.
 - Language roleplay coach, academic literature review matrix, rubric reviewer, and notebook builder.
+- Advanced creative flows such as avatar dubbing, long-form video assembly, generated music beds, paid media experiment loops, and rights-clearance review.
 
 ## Sync
 

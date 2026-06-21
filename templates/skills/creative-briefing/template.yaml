@@ -1,0 +1,25 @@
+kind: skill
+id: creative-briefing
+name: Creative Briefing
+version: 1.0.0
+status: active
+category: Creative
+description: Convert campaign goals, audience, channel, and brand rules into a production-ready creative brief.
+manifest:
+  capabilities:
+    - brand.guidelines.read
+    - assets.search
+    - documents.read
+  inputs:
+    - campaignGoal
+    - audience
+    - channel
+    - brandGuidelines
+  outputs:
+    - creativeBrief
+    - shotList
+    - promptDirections
+    - reviewChecklist
+  safety:
+    requireBrandGuidelines: true
+    flagMissingRights: true

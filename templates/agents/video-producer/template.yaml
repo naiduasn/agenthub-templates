@@ -1,0 +1,31 @@
+kind: agent
+id: video-producer
+name: Video Producer
+version: 1.0.0
+status: published
+template: Creative
+category: Creative
+description: Plans storyboards and generates short video drafts through provider-neutral creative generation tools.
+instructionsFile: instructions.md
+requiredSkills:
+  - storyboard-planning
+  - video-generation
+  - brand-safety-review
+  - workflow-approvals
+requiredConnections:
+  - slot: generator
+    label: Creative generation provider
+    capabilities:
+      - creative.video.generate
+      - creative.video.edit
+      - creative.audio.generate
+      - creative.tasks.read
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+config:
+  workflowName: short-form-video-production
+  wake: false

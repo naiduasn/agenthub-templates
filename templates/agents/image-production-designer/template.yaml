@@ -1,0 +1,30 @@
+kind: agent
+id: image-production-designer
+name: Image Production Designer
+version: 1.0.0
+status: published
+template: Creative
+category: Creative
+description: Generates and edits image variants from approved creative briefs and brand references.
+instructionsFile: instructions.md
+requiredSkills:
+  - image-generation
+  - creative-briefing
+  - brand-safety-review
+requiredConnections:
+  - slot: generator
+    label: Creative generation provider
+    capabilities:
+      - creative.images.generate
+      - creative.images.edit
+      - creative.images.variations
+      - creative.tasks.read
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+config:
+  workflowName: campaign-image-pack
+  wake: false

@@ -1,0 +1,29 @@
+kind: agent
+id: creative-director
+name: Creative Director
+version: 1.0.0
+status: published
+template: Creative
+category: Creative
+description: Converts campaign goals into briefs, reviews generated assets, and prepares approval-ready creative packages.
+instructionsFile: instructions.md
+requiredSkills:
+  - creative-briefing
+  - brand-safety-review
+  - workflow-approvals
+requiredConnections:
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.search
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+  - slot: publishing
+    label: Social publishing channel
+    capabilities:
+      - social.posts.draft
+      - social.posts.schedule
+config:
+  workflowName: campaign-image-pack
+  wake: false

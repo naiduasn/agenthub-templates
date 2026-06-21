@@ -1,0 +1,25 @@
+kind: skill
+id: storyboard-planning
+name: Storyboard Planning
+version: 1.0.0
+status: active
+category: Creative
+description: Turn a creative brief into scenes, beats, camera notes, visual references, and production constraints.
+manifest:
+  capabilities:
+    - assets.search
+    - brand.guidelines.read
+    - documents.write
+  inputs:
+    - creativeBrief
+    - duration
+    - aspectRatio
+    - channel
+  outputs:
+    - storyboard
+    - scenePrompts
+    - referenceAssetMap
+    - productionRisks
+  safety:
+    markRightsNeeded: true
+    keepScenePromptsEditable: true

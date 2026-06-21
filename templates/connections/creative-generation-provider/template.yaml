@@ -1,0 +1,32 @@
+kind: connection
+id: creative-generation-provider
+name: Creative Generation Provider
+version: 1.0.0
+status: active
+connectionKind: api
+auth: custom
+description: Provider-neutral image, video, audio, and edit generation connection for creative production workflows.
+category: Creative
+capabilities:
+  - creative.images.generate
+  - creative.images.edit
+  - creative.images.variations
+  - creative.video.generate
+  - creative.video.edit
+  - creative.audio.generate
+  - creative.tasks.read
+toolContract:
+  generateImage: creative.images.generate
+  editImage: creative.images.edit
+  generateVideo: creative.video.generate
+  editVideo: creative.video.edit
+  taskStatus: creative.tasks.read
+configuration:
+  required:
+    - provider
+    - modelPolicy
+  optional:
+    - allowedModels
+    - maxSpendPerRun
+    - contentPolicy
+    - watermarks

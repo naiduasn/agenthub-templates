@@ -1,0 +1,27 @@
+kind: skill
+id: image-generation
+name: Image Generation
+version: 1.0.0
+status: active
+category: Creative
+description: Generate or edit image variants from approved briefs, references, dimensions, and brand constraints.
+manifest:
+  capabilities:
+    - creative.images.generate
+    - creative.images.edit
+    - creative.images.variations
+    - assets.write
+  inputs:
+    - creativeBrief
+    - promptDirections
+    - referenceAssets
+    - dimensions
+  outputs:
+    - imageVariants
+    - promptLog
+    - generationMetadata
+    - assetLinks
+  safety:
+    requireApprovalBeforePublicUse: true
+    preservePromptLog: true
+    avoidProtectedLikenessWithoutRights: true
