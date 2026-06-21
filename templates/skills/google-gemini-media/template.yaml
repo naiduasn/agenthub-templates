@@ -1,0 +1,41 @@
+kind: skill
+id: google-gemini-media
+name: Google Gemini Media
+version: 1.0.0
+status: active
+category: Creative
+description: Generate or edit images with Gemini/Nano Banana, then optionally animate approved images with Veo image-to-video.
+skillFile: SKILL.md
+manifest:
+  capabilities:
+    - creative.images.generate
+    - creative.images.edit
+    - creative.video.generate
+    - creative.video.image-to-video
+    - creative.tasks.read
+    - assets.write
+  inputs:
+    - creativeBrief
+    - imagePrompt
+    - videoPrompt
+    - referenceAssets
+    - aspectRatio
+    - durationSeconds
+    - approvalState
+  outputs:
+    - generatedImage
+    - generatedVideo
+    - assetLinks
+    - promptLog
+    - generationMetadata
+    - reviewPackage
+  safety:
+    requireHumanReview: true
+    requireApprovalBeforeVideo: true
+    preservePromptLog: true
+    avoidProtectedLikenessWithoutRights: true
+    providerPolicyApplies: true
+  inspiration:
+    - repo: cnemri/google-genai-skills
+      license: MIT
+      notes: Conceptually inspired by the Nano Banana and Veo use skills; AgentHub instructions are original.

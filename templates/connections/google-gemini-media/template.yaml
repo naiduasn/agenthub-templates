@@ -1,0 +1,39 @@
+kind: connection
+id: google-gemini-media
+name: Google Gemini Media
+version: 1.0.0
+status: active
+connectionKind: api
+auth: custom
+description: Google Gemini API connection for Nano Banana image generation and Veo image-to-video workflows.
+category: Creative
+capabilities:
+  - creative.images.generate
+  - creative.images.edit
+  - creative.video.generate
+  - creative.video.image-to-video
+  - creative.tasks.read
+toolContract:
+  generateImage: creative.images.generate
+  editImage: creative.images.edit
+  generateVideo: creative.video.generate
+  imageToVideo: creative.video.image-to-video
+  taskStatus: creative.tasks.read
+provider:
+  name: Google Gemini API
+  imageFamily: Nano Banana / Gemini native image generation
+  videoFamily: Veo
+configuration:
+  required:
+    - apiKeySecret
+    - imageModel
+    - videoModel
+  optional:
+    - projectId
+    - location
+    - maxSpendPerRun
+    - pollIntervalSeconds
+    - allowedAspectRatios
+    - allowedDurations
+    - contentPolicy
+    - watermarkPolicy

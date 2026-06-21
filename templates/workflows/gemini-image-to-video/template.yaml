@@ -1,0 +1,84 @@
+kind: workflow
+id: gemini-image-to-video
+name: Gemini Image To Video
+version: 1.0.0
+runtimeName: gemini-image-to-video
+trigger: Manual - creative image-to-video brief
+status: published
+category: Creative
+description: Generate a source image with Gemini/Nano Banana, review it, then animate the approved image with Veo.
+requiredSkills:
+  - creative-briefing
+  - google-gemini-media
+  - brand-safety-review
+  - workflow-approvals
+requiredConnections:
+  - slot: generator
+    label: Google Gemini media provider
+    capabilities:
+      - creative.images.generate
+      - creative.images.edit
+      - creative.video.image-to-video
+      - creative.tasks.read
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.search
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+approvalGates:
+  - id: approve_image_prompt
+    label: Approve image prompt and references
+    capabilities:
+      - creative.images.generate
+  - id: approve_video_generation
+    label: Approve Veo image-to-video generation
+    capabilities:
+      - creative.video.image-to-video
+  - id: approve_final_assets
+    label: Approve final asset package
+    capabilities:
+      - assets.write
+stages:
+  - type: agent
+    agent: Creative Director
+    template: Creative
+    role: Convert the brief into channel, format, image prompt, video prompt, and review criteria
+    status: queued
+    conn: brief ready
+  - type: approval
+    label: Image prompt approval
+    detail: Confirm references, rights, brand constraints, aspect ratio, and spend guardrails before image generation
+    conn: on approve
+  - type: agent
+    agent: Gemini Media Producer
+    template: Gemini image
+    role: Generate or edit the source image, upload it, and return image review metadata
+    status: idle
+    conn: image ready
+  - type: approval
+    label: Video generation approval
+    detail: Confirm the selected source image, motion prompt, duration, and Veo cost guardrails before rendering
+    conn: on approve
+  - type: agent
+    agent: Gemini Media Producer
+    template: Veo image-to-video
+    role: Generate the video, poll task status, upload the asset, and preserve provider metadata
+    status: idle
+    conn: video ready
+  - type: agent
+    agent: Creative Director
+    template: Brand review
+    role: Review the generated image and video package for brand fit, rights, and channel readiness
+    status: idle
+    conn: review
+  - type: approval
+    label: Final asset approval
+    detail: Approve asset library links, prompt logs, usage notes, and publishing readiness
+    conn: complete
+schedule:
+  supported: false
+  default:
+    frequency: manual
+    timezone: project

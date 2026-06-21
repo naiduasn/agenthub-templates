@@ -1,0 +1,31 @@
+kind: agent
+id: gemini-media-producer
+name: Gemini Media Producer
+version: 1.0.0
+status: published
+template: Creative
+category: Creative
+description: Produces approved image assets with Gemini/Nano Banana and animates them with Veo image-to-video.
+instructionsFile: instructions.md
+requiredSkills:
+  - creative-briefing
+  - google-gemini-media
+  - brand-safety-review
+  - workflow-approvals
+requiredConnections:
+  - slot: generator
+    label: Google Gemini media provider
+    capabilities:
+      - creative.images.generate
+      - creative.images.edit
+      - creative.video.image-to-video
+      - creative.tasks.read
+  - slot: assets
+    label: Asset library
+    capabilities:
+      - assets.read
+      - assets.write
+      - brand.guidelines.read
+config:
+  workflowName: gemini-image-to-video
+  wake: false
